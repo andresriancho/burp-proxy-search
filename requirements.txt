@@ -1,0 +1,2 @@
+xmltodict==0.11.0
+dotdict==0.1
