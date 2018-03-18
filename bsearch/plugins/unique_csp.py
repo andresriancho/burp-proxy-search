@@ -1,4 +1,5 @@
 import re
+import os
 
 from bsearch.plugins.base import Plugin
 from bsearch.utils import base64decode
@@ -9,11 +10,19 @@ class UniqueCSP(Plugin):
     CSP = 'Content-Security-Policy'
     CSP_RE = re.compile('Content-Security-Policy: (.*?)\n')
     NONCE_RE = re.compile("'nonce-(.*?)'")
+    TARGET = os.environ.get('TARGET', None)
 
     def __init__(self):
         self.unique_csps = set()
 
     def process_item(self, item):
+        if self.TARGET is not None:
+            request = base64decode(item.response.get('#text'))
+            request = request[:10000]
+
+            if self.TARGET not in request:
+                return
+
         response = base64decode(item.response.get('#text'))
         response = response[:10000]
 
