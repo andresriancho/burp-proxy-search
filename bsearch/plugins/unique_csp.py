@@ -17,19 +17,23 @@ class UniqueCSP(Plugin):
 
     def process_item(self, item):
         if self.TARGET is not None:
-            request = base64decode(item.response.get('#text'))
+            request = base64decode(item.request.get('#text'))
             request = request[:10000]
 
             if self.TARGET not in request:
                 return
 
-        response = base64decode(item.response.get('#text'))
-        response = response[:10000]
-
-        if self.CSP not in response:
+        response_text = item.response.get('#text')
+        if response_text is None:
             return
 
-        mo = self.CSP_RE.search(response)
+        response_text = base64decode(response_text)
+        response_text = response_text[:10000]
+
+        if self.CSP not in response_text:
+            return
+
+        mo = self.CSP_RE.search(response_text)
         if not mo:
             return
 
