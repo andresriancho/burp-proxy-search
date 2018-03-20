@@ -34,8 +34,9 @@ python burp-proxy-search.py ~/current-project/burp/saved.data --plugin your-amaz
 # Extending using plugins
 
 1. Create the plugin inheriting from `Plugin`
-2. Edit `plugin_manager.py` to add a reference to the new plugin
-3. Test and send a pull request ;-)
+2. Take a look at `unique_cors.py` for inspiration 
+3. Edit `plugin_manager.py` to add a reference to the new plugin
+4. Test and send a pull request ;-)
 
 The plugin needs to implement `process_item` to process each HTTP request
 and response, and an `end` method which is called at the end to show the
