@@ -1,8 +1,10 @@
 from bsearch.plugins.unique_csp import UniqueCSP
+from bsearch.plugins.unique_cors import UniqueCORS
 
 DEFAULT_PLUGIN = 'unique_csp'
 
-PLUGINS = {'unique_csp': UniqueCSP}
+PLUGINS = {DEFAULT_PLUGIN: UniqueCSP,
+           'unique_cors': UniqueCORS}
 
 
 def get_default_plugin():
